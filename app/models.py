@@ -1,5 +1,5 @@
 import uuid  # Colocamos este import primero como es un estándar
-from sqlalchemy import Column, DECIMAL, TIMESTAMP
+from sqlalchemy import Column, DECIMAL, TIMESTAMP, Integer, String
 from sqlalchemy.dialects.mysql import CHAR
 from database import Base
 
@@ -23,3 +23,13 @@ class ConsumptionDevice(Base):
 
     id = Column(CHAR(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     name = Column(CHAR(200), nullable=False)
+    level_consumption = Column(String(50), nullable=True)  # Nueva columna para el nivel de consumo
+
+class UserInfo(Base):
+    """Modelo que representa información del usuario."""
+    __tablename__ = 'UserInfo'
+
+    user_id = Column(CHAR(36), primary_key=True, default=lambda: str(uuid.uuid4()))  # UUID como CHAR(36)
+    energy_behavior = Column(String(50), nullable=False)
+    number_occupant_living = Column(Integer, nullable=False)
+    housing_type = Column(String(100), nullable=False)
